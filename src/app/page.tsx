@@ -20,7 +20,7 @@ export default function Home(){
       {/* <button 
         onClick={handleClick}> Take Picture
       </button>  */}
-      <div>{text}</div>
+      <div className="font-black">{text}</div>
       {/* <img src={image || ""} alt="" /> */}
 
     </div>

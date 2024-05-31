@@ -67,7 +67,9 @@ export default function Scanner({ setText }: CameraProps) {
                 facingMode="environment"
             />
             {/* <button onClick={handleClick}>Capture</button> */}
-            {log}
+            <div className="text-xs">
+              {log}
+            </div>
         </div>
     );
 }
