@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createWorker } from 'tesseract.js';
 import { Camera, CameraProps, CameraType } from 'react-camera-pro'
 
-const App = () => {
+export default function Home(){
   const camera = useRef<CameraType>(null) 
   const [image, setImage] = useState<string | null>(null)
   const [text, setText] = useState<string>("")
@@ -41,5 +41,3 @@ const App = () => {
     </div>
   );
 };
-
-export default App;
