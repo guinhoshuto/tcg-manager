@@ -1,42 +1,27 @@
 'use client'
 
+import Scanner from '@/components/Scanner';
 import { useEffect, useRef, useState } from 'react';
-import { createWorker } from 'tesseract.js';
-import { Camera, CameraProps, CameraType } from 'react-camera-pro'
 
 export default function Home(){
-  const camera = useRef<CameraType>(null) 
-  const [image, setImage] = useState<string | null>(null)
   const [text, setText] = useState<string>("")
+  const [isCameraOn, setIsCameraOn] = useState<boolean>(false)
 
-  async function handleClick(){
-    if(camera.current){
-      setImage(camera.current.takePhoto() as string)
-      const worker = await createWorker('por')
-      if(image){
-        const { data } = await worker.recognize(image);
-        setText(data.text)
-      } else {
-        setText('Please, take another picture')
-      }
-
-      console.log(image)
-    }
+  function handleCamera(){
+    setIsCameraOn(!isCameraOn)
+    console.log(isCameraOn)
   }
+
 
   return (
     <div>
-      <Camera 
-        ref={camera} 
-        errorMessages={{}}
-        aspectRatio={16/9}
-        facingMode="environment"
-        />
-      <button 
-        onClick={handleClick}> teste
-      </button>
+      {isCameraOn && (<Scanner setText={setText} />)}
+      <button onClick={handleCamera}>Scan</button>
+      {/* <button 
+        onClick={handleClick}> Take Picture
+      </button>  */}
       <div>{text}</div>
-      <img src={image || ""} alt="" />
+      {/* <img src={image || ""} alt="" /> */}
 
     </div>
   );
