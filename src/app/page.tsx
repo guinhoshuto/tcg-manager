@@ -1,28 +1,62 @@
 'use client'
 
-import Scanner from '@/components/Scanner';
-import { useEffect, useRef, useState } from 'react';
+import Link from "next/link";
+import { useEffect, useState } from "react";
+// import { debounce } from 'lodash'
+
+interface Query {
+  name?: string
+  color?: string
+  power?: number
+  cost?: number
+  counter?: number
+  life?: number
+}
+
+interface Cards {
+  name: string
+  image: string
+}
 
 export default function Home(){
-  const [text, setText] = useState<string>("")
-  const [isCameraOn, setIsCameraOn] = useState<boolean>(false)
+  const [query, setQuery] = useState<Query>({})
+  const [result, setResult] = useState<Cards[]>([])
 
-  function handleCamera(){
-    setIsCameraOn(!isCameraOn)
-    console.log(isCameraOn)
+  const searchQuery = '/api/search'
+  async function handleSearch(e: React.FormEvent<HTMLInputElement>) {
+    console.log(e.currentTarget.value) 
+    setQuery({
+      ...query,
+      name: e.currentTarget.value,
+    })
   }
 
+  useEffect(() => {
+    fetch(searchQuery)
+      .then(res => res.json())
+      .then(cards => setResult(cards))
+  }, [])
+  
+  useEffect(() => {
+    let searchQueryWithParams = searchQuery + '?'
+    if(query.name) searchQueryWithParams += `name=${query.name}`
+    fetch(searchQueryWithParams)
+      .then(res => res.json())
+      .then(cards => setResult(cards))
+  }, [query])
 
   return (
     <div>
-      {isCameraOn && (<Scanner setText={setText} />)}
-      <button onClick={handleCamera}>Scan</button>
-      {/* <button 
-        onClick={handleClick}> Take Picture
-      </button>  */}
-      <div className="font-black">{text}</div>
-      {/* <img src={image || ""} alt="" /> */}
+      <Link href="/scan">Scan</Link>
 
+      <input 
+        type="text" 
+        onChange={handleSearch}
+        />
+
+      <div className="flex">
+        {result.map(card => (<div><a href={card.image}><img src={card.image} />{card.name}</a></div>))}
+      </div>
     </div>
   );
 };
