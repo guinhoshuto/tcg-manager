@@ -1,8 +1,10 @@
+import { Caesar_Dressing } from "next/font/google"
 import Image from "next/image"
 
 interface Card {
   name: string
   image: string
+  code: string
 }
 
 interface CardProps {
@@ -11,8 +13,8 @@ interface CardProps {
 
 export default function Card({ card } : CardProps){
     return(
-        <div className="flex flex-col w-full">
-            <a href={card.image}>
+        <div className="flex flex-col w-full justify-center text-center">
+            <a href={card.image} className="flex justify-center">
                 <Image
                     src={card.image} 
                     width="200" 
@@ -20,7 +22,7 @@ export default function Card({ card } : CardProps){
                     alt={card.name}
                     />
             </a>
-            {card.name}
+            <b>{card.name}</b> ({card.code})
         </div>
     )
 

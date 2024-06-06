@@ -14,11 +14,13 @@ interface Query {
   cost?: number
   counter?: number
   life?: number
+  trigger?: string
 }
 
 interface Cards {
   name: string
   image: string
+  code: string
 }
 
 export default function Home(){
@@ -36,6 +38,13 @@ export default function Home(){
     setQuery({
       ...query,
       name: e.currentTarget.value,
+    })
+  }
+
+  async function handleHaveTrigger(value: string){
+    setQuery({
+      ...query,
+      trigger: value
     })
   }
 
@@ -79,11 +88,11 @@ export default function Home(){
             />
         </div>
         <div className={`bg-black h-10 w-full ${showFilter ? 'block ease-in-out' : 'hidden'}`}>
-          aaa
+
         </div>
       </div>
 
-      <div className="grid gap-8 grid-cols-8 w-full">
+      <div className="grid gap-4 lg:gap-8 grid-col-4 lg:grid-cols-8 w-full justify-center">
         {isLoading ? ('loading') : result.map(card => (<Card card={card}/>))}
       </div>
     </div>
