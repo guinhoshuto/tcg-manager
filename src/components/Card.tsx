@@ -17,8 +17,8 @@ export default function Card({ card } : CardProps){
             <a href={card.image} className="flex justify-center">
                 <Image
                     src={card.image} 
-                    width="200" 
-                    height="400" 
+                    width="250" 
+                    height="350" 
                     alt={card.name}
                     />
             </a>

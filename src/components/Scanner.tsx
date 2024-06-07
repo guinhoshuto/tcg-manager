@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { createWorker } from 'tesseract.js';
 import { Camera, CameraType } from 'react-camera-pro';
+import useRetangleSize from "@/hooks/useRetangleSize";
 
 interface CameraProps {
     setText: (text: string) => void;
@@ -11,6 +12,8 @@ export default function Scanner({ setText }: CameraProps) {
     const [image, setImage] = useState<string | null>(null);
     const [worker, setWorker] = useState<any>(null);
     const [log, setLog] = useState<string>("")
+
+    const { height, width, top, left } = useRetangleSize()
 
     useEffect(() => {
         const loadTesseract = async () => {
@@ -59,16 +62,19 @@ export default function Scanner({ setText }: CameraProps) {
     };
 
     return (
-        <div>
-            <Camera 
-                ref={camera} 
-                errorMessages={{}}
-                aspectRatio={5 / 7}
-                facingMode="environment"
-            />
+        <div className="flex flex-col p-2 items-center">
+            <div className="max-w-[400px] w-full h-[560px] ring-1">
+                <Camera 
+                    ref={camera} 
+                    errorMessages={{}}
+                    aspectRatio={5 / 7}
+                    facingMode="environment"
+                />
+
+            </div>
             {/* <button onClick={handleClick}>Capture</button> */}
             <div className="text-xs">
-              {log}
+              {log} {width} x{height}
             </div>
         </div>
     );
