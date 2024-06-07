@@ -93,7 +93,7 @@ export default function Home(){
       </div>
 
       <div className="grid gap-4 lg:gap-8 grid-col-4 lg:grid-cols-8 w-full justify-center">
-        {isLoading ? ('loading') : result.map(card => (<Card card={card}/>))}
+        {isLoading ? ('loading') : result.map(card => (<Card key={card.code} card={card}/>))}
       </div>
     </div>
   );
