@@ -32,7 +32,7 @@ export default function useRetangleSize(){
 
     useEffect(() => {
         function handleResize(){
-            setRetangleSize(useRetangleSize())
+            setRetangleSize(getRetangleSizes())
         }
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
