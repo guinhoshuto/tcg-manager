@@ -62,7 +62,8 @@ export default function Scanner({ setText }: CameraProps) {
     };
 
     return (
-        <div className="flex flex-col p-2 items-center">
+        <div className="flex flex-col p-2 items-center relative">
+            <div className={`absolute opacity-35 bg-black top-[${top}px] left-[${left}px] w-[${width}px] h-[${height}px]`}></div>
             <div className="max-w-[400px] w-full h-[560px] ring-1">
                 <Camera 
                     ref={camera} 
