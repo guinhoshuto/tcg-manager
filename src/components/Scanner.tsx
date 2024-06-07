@@ -39,7 +39,7 @@ export default function Scanner({ setText }: CameraProps) {
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [worker, camera]);
+    }, [worker, camera, setText]);
 
     const handleClick = async () => {
         if (camera.current) {
@@ -63,7 +63,7 @@ export default function Scanner({ setText }: CameraProps) {
             <Camera 
                 ref={camera} 
                 errorMessages={{}}
-                aspectRatio={16 / 9}
+                aspectRatio={5 / 7}
                 facingMode="environment"
             />
             {/* <button onClick={handleClick}>Capture</button> */}
