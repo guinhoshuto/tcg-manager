@@ -21,6 +21,7 @@ interface Cards {
   name: string
   image: string
   code: string
+  code_variant: string
 }
 
 export default function Home(){
@@ -57,10 +58,12 @@ export default function Home(){
   useEffect(() => {
     setIsLoading(true)
     let searchQueryWithParams = searchQuery + '?'
+    console.log('query', query)
     if(query.name) searchQueryWithParams += `name=${query.name}`
     fetch(searchQueryWithParams)
       .then(res => res.json())
       .then(cards => setResult(cards))
+    console.log
     setIsLoading(false)
   }, [query])
 
@@ -93,7 +96,7 @@ export default function Home(){
       </div>
 
       <div className="grid gap-4 lg:gap-8 grid-col-4 lg:grid-cols-8 w-full justify-center">
-        {isLoading ? ('loading') : result.map(card => (<Card key={card.code} card={card}/>))}
+        {isLoading ? ('loading') : result.map(card => (<Card key={card.code_variant} card={card}/>))}
       </div>
     </div>
   );

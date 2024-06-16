@@ -25,12 +25,19 @@ export default function Scanner({ setText }: CameraProps) {
     }, []);
 
     useEffect(() => {
+        const nameRetangle = {
+            left: 50,
+            top: 462,
+            width: 309,
+            height: 37
+        }
+
         const interval = setInterval(async () => {
             if (worker && camera.current) {
                 const photo = camera.current.takePhoto() as string;
                 setImage(photo);
                 if (photo) {
-                    const { data } = await worker.recognize(photo);
+                    const { data } = await worker.recognize(photo, { nameRetangle});
                     setLog(`${data.confidence} - ${data.text}`)
                     if(data.confidence > 90){
                       setText(data.text);
