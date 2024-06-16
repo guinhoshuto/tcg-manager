@@ -4,6 +4,7 @@ import Card from "@/components/Card";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Filter, Search } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 // import { debounce } from 'lodash'
 
@@ -27,8 +28,10 @@ interface Cards {
 export default function Home(){
   const [query, setQuery] = useState<Query>({})
   const [result, setResult] = useState<Cards[]>([])
+  const [user, setUser] = useState<string | undefined>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [showFilter, setShowFilter] = useState<boolean>(false)
+  const [selection, setSelection] = useState<string[]>([])
 
   function toggleFilter(){
     setShowFilter(!showFilter)
@@ -49,7 +52,14 @@ export default function Home(){
     })
   }
 
+  function handleClick(code: string){
+    setSelection([...selection, code])
+    console.log(code)
+  }
+
   useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(res => setUser(res.data.user?.email))
     fetch(searchQuery)
       .then(res => res.json())
       .then(cards => setResult(cards))
@@ -69,8 +79,9 @@ export default function Home(){
 
   return (
     <div className="px-4 flex flex-col gap-8">
-      <nav className="flex justify-end items-center p-8">
+      <nav className="flex justify-end items-center p-8 gap-2">
         <Link href="/scan">Scan</Link>
+        {user ? (<Link href="/dash">{user}</Link>) : (<Link href="/login">Login</Link>)}
       </nav>
 
       <div className="flex flex-col gap-4 p-4 items-center">
@@ -96,7 +107,13 @@ export default function Home(){
       </div>
 
       <div className="grid gap-4 lg:gap-8 grid-col-4 lg:grid-cols-8 w-full justify-center">
-        {isLoading ? ('loading') : result.map(card => (<Card key={card.code_variant} card={card}/>))}
+        {isLoading ? ('loading') : result.map(card => (
+          <Card 
+            key={card.code_variant} 
+            card={card}
+            handleClick={handleClick}
+            />
+          ))}
       </div>
     </div>
   );

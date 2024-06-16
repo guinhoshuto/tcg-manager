@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { db } from "@/lib/supabase/db";
 
 export async function GET(
     req: NextRequest
@@ -8,7 +8,7 @@ export async function GET(
     const color = new URL(req.url).searchParams.get('color')
     const attr = new URL(req.url).searchParams.get('attr')
     const trigger = new URL(req.url).searchParams.get('trigger')
-    let query = supabase
+    let query = db
         .from('optcg_cards')
         .select('*')
         .range(0, 50);
