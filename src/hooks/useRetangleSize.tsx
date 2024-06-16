@@ -21,8 +21,8 @@ function getRetangleSizes(): RectSize{
 
     return {
         width: width*31/40, 
-        height: height*18/280, 
-        top:height*242/280, 
+        height: height*17/280, 
+        top:height*243/280, 
         left: width/8
     }
 }

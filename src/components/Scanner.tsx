@@ -72,7 +72,7 @@ export default function Scanner({ setText }: CameraProps) {
                     facingMode="environment"
                 />
 
-                <div className={`absolute opacity-35 bg-black top-[${top}px] left-[${left}px] w-[${width}px] h-[${height}px]`}></div>
+                <div className={`absolute opacity-35 ring-red-500 ring-1 bg-black top-[${top}px] left-[${left}px] w-[${width}px] h-[${height}px]`}></div>
             </div>
             {/* <button onClick={handleClick}>Capture</button> */}
             <div className="text-xs">
