@@ -17,17 +17,17 @@ function getWindowDimensions(){
 
 function getRetangleSizes(): RectSize{
     const {width, height} = getWindowDimensions()
-    if(width < 400) return {width, height, top: 0, left: 0}
+    // if(width < 400) return {width, height, top: 0, left: 0}
 
     return {
-        width: 44, 
-        height: 17, 
-        top: 326, 
-        left: 524
+        width: width*31/40, 
+        height: height*19/280, 
+        top:height*241/280, 
+        left: width/8
     }
 }
 
-export default function useRetangleSize(){
+export default function useRetangleSize(): RectSize{
     const [retangleSize, setRetangleSize] = useState<RectSize>(getRetangleSizes());
 
     useEffect(() => {
