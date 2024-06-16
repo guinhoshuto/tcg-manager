@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Filter, Search } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import Selection from "@/components/Selection";
 
 // import { debounce } from 'lodash'
 
@@ -31,7 +32,7 @@ export default function Home(){
   const [user, setUser] = useState<string | undefined>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [showFilter, setShowFilter] = useState<boolean>(false)
-  const [selection, setSelection] = useState<string[]>([])
+  const [selection, setSelection] = useState<Cards[]>([])
 
   function toggleFilter(){
     setShowFilter(!showFilter)
@@ -52,9 +53,9 @@ export default function Home(){
     })
   }
 
-  function handleClick(code: string){
-    setSelection([...selection, code])
-    console.log(code)
+  function handleClick(card: Cards){
+    setSelection([...selection, card])
+    console.log(selection)
   }
 
   useEffect(() => {
@@ -115,6 +116,9 @@ export default function Home(){
             />
           ))}
       </div>
+
+      {/* selection */}
+      <Selection cards={selection} />
     </div>
   );
 };

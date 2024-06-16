@@ -10,12 +10,12 @@ interface Card {
 
 interface CardProps {
     card: Card
-    handleClick: (code: string) => void
+    handleClick: (card: Card) => void
 }
 
 export default function Card({ card, handleClick } : CardProps){
     return(
-        <div className="flex flex-col w-full justify-center text-center cursor-pointer" onClick={() => handleClick(card.code_variant)}>
+        <div className="flex flex-col w-full justify-center text-center cursor-pointer" onClick={() => handleClick(card)}>
             <Image
                 src={card.image} 
                 width="250" 
