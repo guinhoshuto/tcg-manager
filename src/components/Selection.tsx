@@ -20,7 +20,7 @@ export default function Selection({ cards }: SelectionProps) {
         </div>
         <div className="overflow-x-scroll">
             {cards.map((card) => (
-            <Card key={card.code} card={card} handleClick={() => console.log(card)} />
+                <Card key={card.code} card={card} handleClick={() => console.log(card)} />
             ))}
         </div>
       </div>

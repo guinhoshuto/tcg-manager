@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Filter, Search } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import Selection from "@/components/Selection";
+import { createReadStream } from "fs";
 
 // import { debounce } from 'lodash'
 
@@ -118,7 +119,7 @@ export default function Home(){
       </div>
 
       {/* selection */}
-      <Selection cards={selection} />
+      {selection.length > 0 && (<Selection cards={selection} />)}
     </div>
   );
 };
