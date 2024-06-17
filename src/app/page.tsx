@@ -27,6 +27,7 @@ interface Cards {
   code_variant: string
 }
 
+const supabase = createClient()
 export default function Home(){
   const [query, setQuery] = useState<Query>({})
   const [result, setResult] = useState<Cards[]>([])
@@ -64,7 +65,6 @@ export default function Home(){
   }
 
   useEffect(() => {
-    const supabase = createClient()
     supabase.auth.getUser().then(res => setUser(res.data.user?.email))
     fetch(searchQuery)
       .then(res => res.json())
@@ -120,7 +120,7 @@ export default function Home(){
           ))}
       </div>
 
-      {/* {selection.length > 0 && (<Selection cards={selection} />)} */}
+      {selection.length > 0 && (<Selection cards={selection} />)}
     </div>
   );
 };
