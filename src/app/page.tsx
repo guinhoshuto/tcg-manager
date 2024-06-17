@@ -33,6 +33,7 @@ export default function Home(){
   const [user, setUser] = useState<string | undefined>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [showFilter, setShowFilter] = useState<boolean>(false)
+  const [selectionMode, setSelectionMode] = useState<boolean>(false)
   const [selection, setSelection] = useState<Cards[]>([])
 
   function toggleFilter(){
@@ -55,8 +56,11 @@ export default function Home(){
   }
 
   function handleClick(card: Cards){
-    setSelection([...selection, card])
-    console.log(selection)
+    if(selectionMode){
+      setSelection([...selection, card])
+    } else {
+      
+    }
   }
 
   useEffect(() => {

@@ -13,15 +13,16 @@ interface SelectionProps{
 
 export default function Selection({ cards }: SelectionProps) {
     return (
-      <div className="absolute w-full flex bottom-0 h-[200px] bg-white drop-shadow-md">
-        <div>
-            <button>Limpar</button>
-            <button>Salvar</button>
+      <div className="absolute w-full flex flex-col bottom-0 h-[200px] bg-white drop-shadow-md">
+        <div className="flex gap-2">
+            <button>Clear</button>
+            <button>Export</button>
+            <button>Save</button>
         </div>
-        <div className="overflow-x-scroll">
-            {cards.map((card) => (
+        <div className="overflow-x-scroll w-full flex justify-start">
+            {cards.length > 0 ? cards.map((card) => (
                 <Card key={card.code} card={card} handleClick={() => console.log(card)} />
-            ))}
+            )) : <div>Não há cartas selecionadas</div>}
         </div>
       </div>
     )
