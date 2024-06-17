@@ -59,7 +59,7 @@ export default function Home(){
     if(selectionMode){
       setSelection([...selection, card])
     } else {
-      
+
     }
   }
 
@@ -74,12 +74,10 @@ export default function Home(){
   useEffect(() => {
     setIsLoading(true)
     let searchQueryWithParams = searchQuery + '?'
-    console.log('query', query)
     if(query.name) searchQueryWithParams += `name=${query.name}`
     fetch(searchQueryWithParams)
       .then(res => res.json())
       .then(cards => setResult(cards))
-    console.log
     setIsLoading(false)
   }, [query])
 
