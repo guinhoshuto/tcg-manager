@@ -120,8 +120,7 @@ export default function Home(){
           ))}
       </div>
 
-      {/* selection */}
-      {selection.length > 0 && (<Selection cards={selection} />)}
+      {/* {selection.length > 0 && (<Selection cards={selection} />)} */}
     </div>
   );
 };
