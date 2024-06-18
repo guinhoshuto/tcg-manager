@@ -22,7 +22,7 @@ export default function Selection({ cards }: SelectionProps) {
         <div className="overflow-x-scroll w-full flex justify-start">
             {cards.length > 0 ? cards.map((card) => (
                 <Card key={card.code} card={card} handleClick={() => console.log(card)} />
-            )) : <div>Não há cartas selecionadas</div>}
+            )) : (<div>Não há cartas selecionadas</div>)}
         </div>
       </div>
     )
