@@ -7,6 +7,7 @@ import { Filter, Search } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import Selection from "@/components/Selection";
 import { createReadStream } from "fs";
+import Cards from "@/components/Cards";
 
 // import { debounce } from 'lodash'
 
@@ -110,7 +111,8 @@ export default function Home(){
         </div>
       </div>
 
-      <div className="grid gap-4 lg:gap-8 grid-col-4 lg:grid-cols-8 w-full justify-center">
+      {isLoading ? ('loading') : (<Cards cards={result} handleClick={handleClick} />)}
+      {/* <div className="grid gap-4 lg:gap-8 grid-col-4 lg:grid-cols-8 w-full justify-center">
         {isLoading ? ('loading') : result.map(card => (
           <Card 
             key={card.code_variant} 
@@ -118,7 +120,7 @@ export default function Home(){
             handleClick={handleClick}
             />
           ))}
-      </div>
+      </div> */}
 
       {selection.length > 0 && (<Selection cards={selection} />)}
     </div>
