@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { Filter, Search } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import Selection from "@/components/Selection";
-import { createReadStream } from "fs";
 import Cards from "@/components/Cards";
 
 // import { debounce } from 'lodash'
@@ -66,10 +65,14 @@ export default function Home(){
   }
 
   useEffect(() => {
+    setIsLoading(true)
     supabase.auth.getUser().then(res => setUser(res.data.user?.email))
     fetch(searchQuery)
       .then(res => res.json())
-      .then(cards => setResult(cards))
+      .then(cards => {
+        setResult(cards)
+        setIsLoading(false)
+      })
   }, [])
   
   useEffect(() => {
@@ -78,8 +81,10 @@ export default function Home(){
     if(query.name) searchQueryWithParams += `name=${query.name}`
     fetch(searchQueryWithParams)
       .then(res => res.json())
-      .then(cards => setResult(cards))
-    setIsLoading(false)
+      .then(cards => {
+        setResult(cards)
+        setIsLoading(false)
+      })
   }, [query])
 
   return (
