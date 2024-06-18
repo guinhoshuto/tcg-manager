@@ -65,6 +65,7 @@ export default function Home(){
   }
 
   useEffect(() => {
+    console.log('entrou')
     setIsLoading(true)
     supabase.auth.getUser().then(res => setUser(res.data.user?.email))
     fetch(searchQuery)
@@ -76,6 +77,7 @@ export default function Home(){
   }, [])
   
   useEffect(() => {
+    console.log('query', query)
     setIsLoading(true)
     let searchQueryWithParams = searchQuery + '?'
     if(query.name) searchQueryWithParams += `name=${query.name}`
