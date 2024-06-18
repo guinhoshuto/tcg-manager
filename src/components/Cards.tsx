@@ -14,13 +14,13 @@ interface CardsProps {
 export default function Cards({cards, handleClick}: CardsProps){
     return (
       <div className="grid gap-4 lg:gap-8 grid-col-4 lg:grid-cols-8 w-full justify-center">
-        {cards.length > 0 && cards.map(card => (
+        {cards ? cards.map(card => (
           <Card 
             key={card.code_variant} 
             card={card}
             handleClick={handleClick}
             />
-          ))}
+          )) : (<div>Não há cartas disponíveis</div>)}
       </div>
     )
 }
