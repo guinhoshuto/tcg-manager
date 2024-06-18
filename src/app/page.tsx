@@ -116,7 +116,7 @@ export default function Home(){
         </div>
       </div>
 
-      {/* {isLoading ? ('loading') : (<Cards cards={result} handleClick={handleClick} />)} */}
+      {isLoading ? ('loading') : (<Cards cards={result} handleClick={handleClick} />)}
       {/* <div className="grid gap-4 lg:gap-8 grid-col-4 lg:grid-cols-8 w-full justify-center">
         {isLoading ? ('loading') : result.map(card => (
           <Card 
