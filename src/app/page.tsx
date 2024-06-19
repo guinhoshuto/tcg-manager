@@ -41,6 +41,12 @@ export default function Home(){
     setShowFilter(!showFilter)
   }
 
+  async function getQueryResults(query: string){
+    const res = await fetch(query)
+    const cards = await res.json()
+    setResult(cards)
+  }
+
   const searchQuery = '/api/search'
   async function handleSearch(e: React.FormEvent<HTMLInputElement>) {
     setQuery({
@@ -60,7 +66,7 @@ export default function Home(){
     if(selectionMode){
       setSelection([...selection, card])
     } else {
-
+      console.log('oi')
     }
   }
 
@@ -68,12 +74,8 @@ export default function Home(){
     console.log('entrou')
     setIsLoading(true)
     supabase.auth.getUser().then(res => setUser(res.data.user?.email))
-    fetch(searchQuery)
-      .then(res => res.json())
-      .then(cards => {
-        setResult(cards)
-        setIsLoading(false)
-      })
+    getQueryResults(searchQuery)
+      .then(res => setIsLoading(false))
   }, [])
   
   useEffect(() => {
@@ -81,12 +83,8 @@ export default function Home(){
     setIsLoading(true)
     let searchQueryWithParams = searchQuery + '?'
     if(query.name) searchQueryWithParams += `name=${query.name}`
-    fetch(searchQueryWithParams)
-      .then(res => res.json())
-      .then(cards => {
-        setResult(cards)
-        setIsLoading(false)
-      })
+    getQueryResults(searchQueryWithParams)
+      .then(res => setIsLoading(false))
   }, [query])
 
   return (

@@ -24,15 +24,26 @@ interface CardProps {
 
 export default function Card({ card, handleClick } : CardProps){
     return(
-        <div className="flex flex-col w-full justify-center text-center cursor-pointer" onClick={() => handleClick(card)}>
+        <div className="flex flex-col w-full justify-start text-center cursor-pointer" onClick={() => handleClick(card)}>
             <Dialog>
                 <DialogTrigger>
-                    <Image
-                        src={card.image} 
-                        width="250" 
-                        height="350" 
-                        alt={card.name}
-                        />
+                    <div className="flex flex-col gap-2 flex-grow">
+                        <Image
+                            // src={card.image} 
+                            src={`https://pub-46b306762cd845f6b6e0eb123db13ef4.r2.dev/${card.code_variant}`}
+                            width="250" 
+                            height="350" 
+                            alt={card.name}
+                            className="transition hover:shadow-md ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-200"
+                            />
+                        <div className="flex flex-col">
+                            <b>{card.name}</b>
+                            <span className="text-sm">
+                                ({card.code})
+                            </span>
+                        </div>
+
+                    </div>
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
@@ -53,7 +64,6 @@ export default function Card({ card, handleClick } : CardProps){
                 </DialogContent>
                 </Dialog>
 
-            <b>{card.name}</b> ({card.code})
         </div>
     )
 
