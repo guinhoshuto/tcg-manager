@@ -4,7 +4,6 @@ import { db } from "@/lib/supabase/db";
 export async function GET(
     req: NextRequest
 ){
-    console.log(db)
     const name = new URL(req.url).searchParams.get('name')
     const color = new URL(req.url).searchParams.get('color')
     const attr = new URL(req.url).searchParams.get('attr')
@@ -19,5 +18,6 @@ export async function GET(
     const { data, error } = await query;
   
     console.log(data, error)
-    return NextResponse.json(data)
+    const res = Array.isArray(data) ? data : [] 
+    return NextResponse.json(res)
 }
