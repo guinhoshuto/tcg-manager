@@ -4,6 +4,7 @@ import { db } from "@/lib/supabase/db";
 export async function GET(
     req: NextRequest
 ){
+    console.log(db)
     const name = new URL(req.url).searchParams.get('name')
     const color = new URL(req.url).searchParams.get('color')
     const attr = new URL(req.url).searchParams.get('attr')
