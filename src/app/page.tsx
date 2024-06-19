@@ -43,6 +43,7 @@ export default function Home(){
 
   async function getQueryResults(query: string){
     const res = await fetch(query)
+    console.log(res)
     const cards = await res.json()
     setResult(cards)
   }

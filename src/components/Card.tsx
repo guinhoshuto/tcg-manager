@@ -42,12 +42,11 @@ export default function Card({ card, handleClick } : CardProps){
                                 ({card.code})
                             </span>
                         </div>
-
                     </div>
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                    <DialogTitle><h1>{card.name}</h1></DialogTitle>
+                    <DialogTitle>{card.name}</DialogTitle>
                     <DialogDescription>
                         <div>
                             <Image
