@@ -1,4 +1,4 @@
-import Card from "./Card"
+import Image from "next/image"
 
 interface Cards {
   name: string
@@ -23,7 +23,13 @@ export default function Selection({ cards, onSave }: SelectionProps) {
         </div>
         <div className="overflow-x-scroll w-full flex justify-start">
             {cards.length > 0 ? cards.map((card) => (
-                <Card key={card.code} card={card} handleClick={() => console.log(card)} />
+              <Image
+                key={card.code_variant}
+                src={card.image} 
+                width="250" 
+                height="350" 
+                alt={card.name}
+                />
             )) : (<div>Não há cartas selecionadas</div>)}
         </div>
       </div>
