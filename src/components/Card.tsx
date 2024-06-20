@@ -8,6 +8,7 @@ import {
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"
+import { useEffect, useState } from "react"
 
 
 interface Card {
@@ -15,14 +16,28 @@ interface Card {
   image: string
   code: string
   code_variant: string
+  description: string
 }
 
 interface CardProps {
     card: Card
+    quantity: number
     handleClick: (card: Card) => void
+    updateQuantity: (n: number) => void
 }
 
-export default function Card({ card, handleClick } : CardProps){
+export default function Card({ card, handleClick, quantity, updateQuantity } : CardProps){
+    const [qtd, setQtd] = useState<number>(quantity)
+
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+        e.preventDefault()
+        setQtd(+e.target.value)
+    }
+
+    useEffect(() => {
+        console.log(qtd)
+    }, [qtd])
+
     return(
         <div className="flex flex-col w-full justify-start text-center cursor-pointer" onClick={() => handleClick(card)}>
             <Dialog>
@@ -46,16 +61,38 @@ export default function Card({ card, handleClick } : CardProps){
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                    <DialogTitle>{card.name}</DialogTitle>
+                    <DialogTitle className="flex gap-2 h-8">
+                        <span>
+                            {card.name}
+                        </span>
+                        <span className="text-sm font-thin">({card.code})</span>
+                    </DialogTitle>
                     <DialogDescription>
-                        <div>
+                        <div className="flex gap-4">
                             <Image
                                 src={card.image} 
                                 width="250" 
                                 height="350" 
                                 alt={card.name}
                                 />
-                            <div>
+                            <div className="flex flex-col justify-between">
+                                <div>
+                                    {card.description}
+                                </div>
+                                <div className="flex gap-2 items-center">
+                                      <button 
+                                         className="flex justify-center items-end bg-green-400 text-white rounded-full p-3" 
+                                         onClick={() => setQtd(qtd - 1)}>-</button>
+                                      <input 
+                                        className="text-center h-full w-10 ring-1 rounded-lg"
+                                        type="number" 
+                                        value={qtd} 
+                                        onChange={handleInputChange} />
+                                      <button 
+                                        className="flex justify-center items-end bg-green-400 text-white rounded-full p-3"
+                                        onClick={() => setQtd(qtd + 1)}>+</button>
+                                      <div className="hover:animate-ping duration-300">❤️</div>
+                                </div>
                             </div>
                         </div>
                     </DialogDescription>
