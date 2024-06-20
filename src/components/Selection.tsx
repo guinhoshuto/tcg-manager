@@ -13,7 +13,7 @@ interface SelectionProps{
 
 export default function Selection({ cards }: SelectionProps) {
     return (
-      <div className="absolute w-full flex flex-col bottom-0 h-[200px] bg-white drop-shadow-md">
+      <div className="fixed w-full flex flex-col bottom-0 h-[200px] bg-white drop-shadow-md">
         <div className="flex gap-2">
             <button>Clear</button>
             <button>Export</button>

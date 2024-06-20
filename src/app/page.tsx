@@ -7,6 +7,9 @@ import { Filter, Search } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import Selection from "@/components/Selection";
 import Cards from "@/components/Cards";
+import { Checkbox } from "@/components/ui/checkbox"
+import { db } from "@/lib/supabase/db";
+
 
 // import { debounce } from 'lodash'
 
@@ -63,6 +66,11 @@ export default function Home(){
     })
   }
 
+  async function handleOnSaveSelection(){
+    if(!user) return alert('Login required')
+    // const { data, error } = await db.from('owned_cards').insert(selection)	
+  }
+
   function handleClick(card: Cards){
     if(selectionMode){
       setSelection([...selection, card])
@@ -112,6 +120,14 @@ export default function Home(){
             fill="#000" 
             />
         </div>
+        <div className="flex gap-2 justify-start items-center w-full">
+          <Checkbox 
+            id="selection-mode"
+            checked={selectionMode} 
+            onCheckedChange={() => setSelectionMode(!selectionMode)}
+            />
+            <label htmlFor="selection-mode">Selection Mode</label>
+        </div>
         <div className={`bg-black h-10 w-full ${showFilter ? 'block ease-in-out' : 'hidden'}`}>
 
         </div>
@@ -128,7 +144,7 @@ export default function Home(){
           ))}
       </div> */}
 
-      {selection.length > 0 && (<Selection cards={selection} />)}
+      {selection.length > 0 && (<Selection cards={selection} onSave={handleOnSaveSelection}/>)}
     </div>
   );
 };
