@@ -38,7 +38,7 @@ export default async function PrivatePage() {
             <h2>Cards</h2>
             <div>
                 <p>Not implemented yet</p>
-                {collection.map((c: Collection )=>(<div>{c.code_variant}</div>))}
+                {collection.map((c: Collection )=>(<div key={c.code_variant}>{c.code_variant}</div>))}
             </div>
         </div>        
         <div className='w-full rounded-md ring-1 p-4'>

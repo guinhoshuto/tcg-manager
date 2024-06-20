@@ -26,6 +26,11 @@ export default function Cards({cards, handleClick, updateCollection, collection}
     return 0
   }
 
+  function handleUpdateQuantity(code_variant:string, qtd: number){
+    const updatedCollection = collection.map(c => c.code_variant === code_variant ? {...c, qtd: qtd} : c) 
+    updateCollection(updatedCollection)
+  }
+
   return (
     <div className="grid gap-4 lg:gap-8 grid-col-4 lg:grid-cols-8 w-full justify-center">
       {cards ? cards.map(card => (
@@ -34,7 +39,7 @@ export default function Cards({cards, handleClick, updateCollection, collection}
           card={card}
           handleClick={handleClick}
           quantity={getQtd(card.code_variant)}
-          updateQuantity={() => {}}
+          updateQuantity={handleUpdateQuantity}
           />
         )) : (<div>Não há cartas disponíveis</div>)}
     </div>

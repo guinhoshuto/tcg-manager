@@ -1,4 +1,4 @@
-import { Caesar_Dressing } from "next/font/google"
+import { debounce } from 'lodash'
 import Image from "next/image"
 import {
     Dialog,
@@ -23,7 +23,7 @@ interface CardProps {
     card: Card
     quantity: number
     handleClick: (card: Card) => void
-    updateQuantity: (n: number) => void
+    updateQuantity: (code_variant:string, n: number) => void
 }
 
 export default function Card({ card, handleClick, quantity, updateQuantity } : CardProps){
@@ -35,8 +35,9 @@ export default function Card({ card, handleClick, quantity, updateQuantity } : C
     }
 
     useEffect(() => {
-        console.log(qtd)
+        updateQuantity(card.code_variant, qtd)
     }, [qtd])
+
 
     return(
         <div className="flex flex-col w-full justify-start text-center cursor-pointer" onClick={() => handleClick(card)}>
