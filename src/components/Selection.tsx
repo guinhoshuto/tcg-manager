@@ -5,6 +5,7 @@ interface Cards {
   image: string
   code: string
   code_variant: string
+  description: string
 }
 
 interface SelectionProps{
