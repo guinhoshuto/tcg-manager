@@ -89,7 +89,8 @@ export default function Home(){
   }
 
   async function handleUpdateCollection(code_variant: string, qtd: number){
-    const res = await fetch(`/api/user/${user?.id}/collection`, {
+    if(!user) return
+    const res = await fetch(`/api/user/${user.id}/collection`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -103,21 +104,24 @@ export default function Home(){
 
   async function getUserCollection(userId: string){
     if(!user) return []
-    const res = await fetch(`/api/user/${user.id}/collection`)
+    console.log(userId, user)
+    const res = await fetch(`/api/user/${userId}/collection`)
     const collection = await res.json()
     setCollection(collection)
   }
 
   useEffect(() => {
     setIsLoading(true)
-    supabase.auth.getUser().then(res => {
-      const { data } = res
-      setUser({
-        email: data.user?.email || "",
-        id: data.user?.id || "" 
+    supabase.auth.getUser()
+      .then(res => {
+        const { data } = res
+        setUser({
+          email: data.user!.email!,
+          id: data.user!.id 
+        })
+      }).then(() => {
+        getQueryResults(searchQuery)
       })
-    })
-    getQueryResults(searchQuery)
       .then(res => setIsLoading(false))
   }, [])
 
