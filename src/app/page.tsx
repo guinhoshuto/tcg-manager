@@ -57,7 +57,6 @@ export default function Home(){
 
   async function getQueryResults(query: string){
     const res = await fetch(query)
-    console.log(res)
     const cards = await res.json()
     setResult(cards)
   }
@@ -173,7 +172,14 @@ export default function Home(){
         </div>
       </div>
 
-      {isLoading ? ('loading') : (<Cards cards={result} handleClick={handleClick} collection={collection} updateCollection={handleUpdateCollection}/>)}
+      {isLoading ? ('loading') : (
+        <Cards 
+          cards={result} 
+          selectionMode={selectionMode}
+          handleClick={handleClick} 
+          collection={collection} 
+          updateCollection={handleUpdateCollection}/>
+      )}
 
       {selection.length > 0 && (<Selection cards={selection} onSave={handleOnSaveSelection}/>)}
     </div>

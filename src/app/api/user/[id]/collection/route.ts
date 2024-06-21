@@ -1,6 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
 import { db } from "@/lib/supabase/db";
-import { update } from "lodash";
 
 export async function GET(
     req: NextRequest,
