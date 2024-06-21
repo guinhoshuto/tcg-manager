@@ -27,7 +27,7 @@ interface CardProps {
 }
 
 export default function Card({ card, handleClick, quantity, updateQuantity } : CardProps){
-    const [qtd, setQtd] = useState<number>(quantity)
+    const [qtd, setQtd] = useState<number>(0)
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         e.preventDefault()
@@ -35,6 +35,11 @@ export default function Card({ card, handleClick, quantity, updateQuantity } : C
     }
 
     useEffect(() => {
+        setQtd(quantity)
+    }, [])
+
+    useEffect(() => {
+        if(qtd < 0) setQtd(0)
         updateQuantity(card.code_variant, qtd)
     }, [qtd])
 
@@ -55,7 +60,7 @@ export default function Card({ card, handleClick, quantity, updateQuantity } : C
                         <div className="flex flex-col">
                             <b>{card.name}</b>
                             <span className="text-sm">
-                                ({card.code})
+                                ({card.code}) 
                             </span>
                         </div>
                     </div>
@@ -86,6 +91,7 @@ export default function Card({ card, handleClick, quantity, updateQuantity } : C
                                          onClick={() => setQtd(qtd - 1)}>-</button>
                                       <input 
                                         className="text-center h-full w-10 ring-1 rounded-lg"
+                                        min={0}
                                         type="number" 
                                         value={qtd} 
                                         onChange={handleInputChange} />

@@ -89,6 +89,19 @@ export default function Home(){
     }
   }
 
+  async function handleUpdateCollection(code_variant: string, qtd: number){
+    const res = await fetch(`/api/user/${user?.id}/collection`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        code_variant,
+        qtd
+      })
+    })
+  }
+
   async function getUserCollection(userId: string){
     if(!user) return []
     const res = await fetch(`/api/user/${user.id}/collection`)
@@ -160,7 +173,7 @@ export default function Home(){
         </div>
       </div>
 
-      {isLoading ? ('loading') : (<Cards cards={result} handleClick={handleClick} collection={collection} updateCollection={setCollection}/>)}
+      {isLoading ? ('loading') : (<Cards cards={result} handleClick={handleClick} collection={collection} updateCollection={handleUpdateCollection}/>)}
 
       {selection.length > 0 && (<Selection cards={selection} onSave={handleOnSaveSelection}/>)}
     </div>
