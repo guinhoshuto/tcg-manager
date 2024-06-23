@@ -19,8 +19,9 @@ interface CardsProps {
     collection: Collection[] 
     updateCollection: (code_variant: string, qtd: number) => void
     selectionMode: boolean
+    focusSearchInput: () => void
 }
-export default function Cards({cards, handleClick, updateCollection, collection, selectionMode}: CardsProps){
+export default function Cards({cards, handleClick, updateCollection, collection, selectionMode, focusSearchInput}: CardsProps){
   function getQtd(code: string){
     const card = collection.find(c => c.code_variant === code)
     if(card) return card?.qtd
@@ -37,6 +38,7 @@ export default function Cards({cards, handleClick, updateCollection, collection,
           quantity={getQtd(card.code_variant)}
           updateQuantity={updateCollection}
           selectionMode={selectionMode}
+          focusSearchInput={focusSearchInput}
           />
         )) : (<div>Não há cartas disponíveis</div>)}
     </div>

@@ -25,9 +25,10 @@ interface CardProps {
     handleClick: (card: Card) => void
     updateQuantity: (code_variant:string, n: number) => void
     selectionMode: boolean
+    focusSearchInput: () => void
 }
 
-export default function Card({ card, handleClick, quantity, updateQuantity, selectionMode } : CardProps){
+export default function Card({ card, handleClick, quantity, updateQuantity, selectionMode, focusSearchInput } : CardProps){
     const [qtd, setQtd] = useState<number | null>(null)
     const [open, setOpen] = useState<boolean>(false)
 
@@ -49,6 +50,7 @@ export default function Card({ card, handleClick, quantity, updateQuantity, sele
 
     function handleOpenModal(o: boolean){
         console.log(o, selectionMode)
+        if(!o) focusSearchInput()
         if(selectionMode){
             setOpen(false)
             return
@@ -60,9 +62,8 @@ export default function Card({ card, handleClick, quantity, updateQuantity, sele
         <div className="flex flex-col w-full justify-start text-center cursor-pointer" onClick={() => handleClick(card)}>
             <Dialog open={open} onOpenChange={handleOpenModal}>
                 <div onClick={() => handleOpenModal(true)}>
-                    <div className="flex flex-col gap-2 flex-grow">
+                    <div className="flex flex-col gap-2 flex-grow relative">
                         <Image
-                            // src={card.image} 
                             src={`https://pub-46b306762cd845f6b6e0eb123db13ef4.r2.dev/${card.code_variant}`}
                             width="250" 
                             height="350" 
@@ -75,6 +76,7 @@ export default function Card({ card, handleClick, quantity, updateQuantity, sele
                                 ({card.code}) 
                             </span>
                         </div>
+                        {quantity > 0 && <div className='absolute right-[-16px] top-[-16px] bg-red-400 rounded-full w-8 h-8 flex justify-center items-center text-white'>{quantity}</div> }
                     </div>
                 </div>
                 <DialogContent>

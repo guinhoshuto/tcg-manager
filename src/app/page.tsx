@@ -2,7 +2,7 @@
 
 import Card from "@/components/Card";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Filter, Search } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import Selection from "@/components/Selection";
@@ -50,6 +50,8 @@ export default function Home(){
   const [collection, setCollection] = useState<Collection[]>([])
   const [selectionMode, setSelectionMode] = useState<boolean>(false)
   const [selection, setSelection] = useState<Cards[]>([])
+
+  const searchRef = useRef<HTMLInputElement>(null)
 
   function toggleFilter(){
     setShowFilter(!showFilter)
@@ -100,6 +102,12 @@ export default function Home(){
         qtd
       })
     })
+  }
+
+  function focusSearchInput(){
+    if(searchRef.current) {
+      searchRef.current.focus()
+    }
   }
 
   async function getUserCollection(userId: string){
@@ -155,6 +163,7 @@ export default function Home(){
               type="text" 
               onChange={handleSearch}
               placeholder="Search by name ..."
+              ref={searchRef}
               />
           </div>
           <Filter 
@@ -182,7 +191,9 @@ export default function Home(){
           selectionMode={selectionMode}
           handleClick={handleClick} 
           collection={collection} 
-          updateCollection={handleUpdateCollection}/>
+          updateCollection={handleUpdateCollection}
+          focusSearchInput={focusSearchInput}
+          />
       )}
 
       {selection.length > 0 && (<Selection cards={selection} onSave={handleOnSaveSelection}/>)}
