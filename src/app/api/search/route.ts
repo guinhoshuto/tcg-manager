@@ -12,12 +12,19 @@ export async function GET(
         .from('optcg_cards')
         .select('*')
         .range(0, 50);
+
     
     if (name) query = query.ilike('name', `%${name}%`);
+    if (color){
+        const colors = color.split(',');
+        const colorsQuery = colors.map((color) => `color.ilike.%${color.trim()}%`).join(',');
+        console.log(colorsQuery)
+        query = query.or(colorsQuery)
+    } 
     
     const { data, error } = await query;
   
-    console.log(data, error)
+    // console.log(data, error)
     const res = Array.isArray(data) ? data : [] 
     return NextResponse.json(res)
 }

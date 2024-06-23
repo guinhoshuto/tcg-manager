@@ -25,10 +25,9 @@ interface CardProps {
     handleClick: (card: Card) => void
     updateQuantity: (code_variant:string, n: number) => void
     selectionMode: boolean
-    focusSearchInput: () => void
 }
 
-export default function Card({ card, handleClick, quantity, updateQuantity, selectionMode, focusSearchInput } : CardProps){
+export default function Card({ card, handleClick, quantity, updateQuantity, selectionMode } : CardProps){
     const [qtd, setQtd] = useState<number | null>(null)
     const [open, setOpen] = useState<boolean>(false)
 
@@ -49,8 +48,6 @@ export default function Card({ card, handleClick, quantity, updateQuantity, sele
     }, [qtd])
 
     function handleOpenModal(o: boolean){
-        console.log(o, selectionMode)
-        if(!o) focusSearchInput()
         if(selectionMode){
             setOpen(false)
             return
