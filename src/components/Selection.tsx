@@ -1,5 +1,3 @@
-import Image from "next/image"
-
 interface Cards {
   name: string
   image: string
@@ -23,7 +21,7 @@ export default function Selection({ cards, onSave }: SelectionProps) {
         </div>
         <div className="overflow-x-scroll w-full flex justify-start">
             {cards.length > 0 ? cards.map((card) => (
-              <Image
+              <img
                 key={card.code_variant}
                 src={card.image} 
                 width="250" 

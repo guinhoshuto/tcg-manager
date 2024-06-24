@@ -1,5 +1,4 @@
 import { debounce, isNull } from 'lodash'
-import Image from "next/image"
 import {
     Dialog,
     DialogContent,
@@ -60,7 +59,7 @@ export default function Card({ card, handleClick, quantity, updateQuantity, sele
             <Dialog open={open} onOpenChange={handleOpenModal}>
                 <div onClick={() => handleOpenModal(true)}>
                     <div className="flex flex-col gap-2 flex-grow relative">
-                        <Image
+                        <img
                             src={`https://pub-46b306762cd845f6b6e0eb123db13ef4.r2.dev/${card.code_variant}`}
                             width="250" 
                             height="350" 
@@ -86,7 +85,7 @@ export default function Card({ card, handleClick, quantity, updateQuantity, sele
                     </DialogTitle>
                     <DialogDescription>
                         <div className="flex gap-4">
-                            <Image
+                            <img
                                 src={card.image} 
                                 width="250" 
                                 height="350" 

@@ -1,9 +1,7 @@
 'use client'
 
-import Card from "@/components/Card";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Filter } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import Selection from "@/components/Selection";
 import Cards from "@/components/Cards";
