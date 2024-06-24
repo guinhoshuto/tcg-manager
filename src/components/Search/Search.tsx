@@ -2,6 +2,7 @@ import { Filter } from "lucide-react"
 import SearchInput from "./SearchInput"
 import { useEffect, useState } from "react"
 import ColorFilter from "./ColorFilter"
+import OwnedFilter from "./OwnedFilter"
 
 interface Query {
   name?: string
@@ -54,9 +55,12 @@ export default function Search({ query, setQuery }: SearchProps) {
                     fill="#000" 
                     />
             </div>
-            <div className={`bg-white p-4 h-20 justify-start shadow-md h-10 w-full ${showFilter ? 'block ease-in-out' : 'hidden'}`}>
+            <div className={`bg-white flex gap-4 p-4 h-20 justify-start shadow-md h-10 w-full ${showFilter ? 'block ease-in-out' : 'hidden'}`}>
                 <div>
                     <ColorFilter setColors={setColors}/>
+                </div>
+                <div>
+                    <OwnedFilter />
                 </div>
             </div>
         </div>

@@ -73,7 +73,7 @@ export default function Card({ card, handleClick, quantity, updateQuantity, sele
                                 ({card.code}) 
                             </span>
                         </div>
-                        {quantity > 0 && <div className='absolute right-[-16px] top-[-16px] bg-red-400 rounded-full w-8 h-8 flex justify-center items-center text-white'>{quantity}</div> }
+                        {qtd && <div className='absolute right-[-16px] top-[-16px] bg-red-400 rounded-full w-8 h-8 flex justify-center items-center text-white'>{qtd}</div> }
                     </div>
                 </div>
                 <DialogContent>
