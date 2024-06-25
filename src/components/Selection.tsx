@@ -50,7 +50,7 @@ export default function Selection({ cards, onSave }: SelectionProps) {
       </div>
       <div className="overflow-x-scroll w-full flex justify-start">
           {cardSelection.length > 0 ? cardSelection.map((selectedCard, i) => (
-            <div key={selectedCard.card.code_valriant} >
+            <div key={selectedCard.card.code_variant} >
               <img
                 className="w-auto h-[200px]"
                 src={selectedCard.card.image} 
