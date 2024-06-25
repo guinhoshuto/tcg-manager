@@ -14,12 +14,14 @@ interface SelectedCardProps {
 
 export default function SelectedCard({ card, qtd }: SelectedCardProps){
     return (
-        <div>
-            <img
-            className="w-auto h-[200px]"
-            src={card.image} 
-            alt={card.name}
-            />
+        <div className="flex w-full h-[200px] relative">
+            {Array.from({length: qtd}, (_, i) => i + 1).map(i => (
+                <img
+                className={`w-auto absolute w-full h-[200px] top-0 left-[${i*20}px]`}
+                src={card.image} 
+                alt={card.name}
+                />
+            ))}
             {qtd}
         </div>
     )

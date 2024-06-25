@@ -48,7 +48,7 @@ export default function Selection({ cards, onSave }: SelectionProps) {
           <button>Export</button>
           <button onClick={onSave}>Save</button>
       </div>
-      <div className="overflow-x-scroll w-full flex justify-start">
+      <div className="overflow-x-scroll w-full flex gap-3 justify-start">
           {cardSelection.length > 0 ? cardSelection.map((selectedCard, i) => (
             <SelectedCard 
               qtd={selectedCard.qtd} 
