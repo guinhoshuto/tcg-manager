@@ -1,5 +1,5 @@
-import { access } from "fs"
 import { useState, useEffect } from "react"
+import SelectedCard from "./SelectedCard"
 
 interface Cards {
   name: string
@@ -50,14 +50,11 @@ export default function Selection({ cards, onSave }: SelectionProps) {
       </div>
       <div className="overflow-x-scroll w-full flex justify-start">
           {cardSelection.length > 0 ? cardSelection.map((selectedCard, i) => (
-            <div key={selectedCard.card.code_variant} >
-              <img
-                className="w-auto h-[200px]"
-                src={selectedCard.card.image} 
-                alt={selectedCard.card.name}
-                />
-                {selectedCard.qtd}
-            </div>
+            <SelectedCard 
+              qtd={selectedCard.qtd} 
+              card={selectedCard.card} 
+              key={selectedCard.card.code_variant}
+              />
           )) : (<div>Não há cartas selecionadas</div>)}
       </div>
     </div>
