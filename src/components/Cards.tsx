@@ -41,13 +41,14 @@ export default function Cards({cards, handleClick, updateCollection, collection,
   useEffect(() => {
     const tmp: CardList[] = []
     cards.forEach(c => {
-      console.log(c)
       const owned = collection.find(col => col.code_variant === c.code_variant)
+      console.log(collection)
+      if(owned) console.log(owned.qtd)
       if(owned) tmp.push({...c, qtd: owned.qtd})
     })
     setCardList(tmp)
     console.log(cardList)
-  }, [])
+  }, [collection])
 
   return (
     <div className="grid gap-4 lg:gap-8 grid-col-4 lg:grid-cols-8 w-full justify-center">
