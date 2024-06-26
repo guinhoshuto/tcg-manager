@@ -56,10 +56,8 @@ export default function Home(){
     setResult(cards)
   }
 
-
   async function handleOnSaveSelection(){
     if(!user) return alert('Login required')
-    // const { data, error } = await db.from('owned_cards').insert(selection)	
   }
 
   function handleClick(card: Cards){
@@ -72,7 +70,7 @@ export default function Home(){
 
   async function handleUpdateCollection(code_variant: string, qtd: number){
     if(!user) return
-    const res = await fetch(`/api/user/${user.id}/collection`, {
+    await fetch(`/api/user/${user.id}/collection`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -84,12 +82,11 @@ export default function Home(){
     })
   }
 
-  async function getUserCollection(userId: string){
-    if(!user) return []
-    console.log(userId, user)
-    const res = await fetch(`/api/user/${userId}/collection`)
-    const collection = await res.json()
-    setCollection(collection)
+  async function getUserCollection(userId: string) {
+    if (!user) return;
+    const res = await fetch(`/api/user/${userId}/collection`);
+    const data = await res.json();
+    setCollection(data);
   }
 
   useEffect(() => {
@@ -97,14 +94,19 @@ export default function Home(){
     supabase.auth.getUser()
       .then(res => {
         const { data } = res
-        setUser({
-          email: data.user!.email!,
-          id: data.user!.id 
-        })
+        if(data.user) {
+          setUser({
+            email: data.user!.email!,
+            id: data.user!.id 
+          })
+        }
       }).then(() => {
         getQueryResults(searchQuery)
       })
-      .then(res => setIsLoading(false))
+      .then(() => {
+        if(user) getUserCollection(user.id)
+      })
+      .then(() => setIsLoading(false))
   }, [])
 
   useEffect(() => {
@@ -121,6 +123,7 @@ export default function Home(){
     getQueryResults(searchQueryWithParams)
       .then(res => setIsLoading(false))
   }, [query])
+
 
   return (
     <div className="px-4 flex flex-col gap-8">
