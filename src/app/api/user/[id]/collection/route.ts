@@ -7,7 +7,6 @@ export async function GET(
 ){
     const { data, error } = await db.from('owned_cards').select('*').eq('user_id', params.id)
   
-    console.log(data, error)
     const res = Array.isArray(data) ? data : [] 
     return NextResponse.json(res)
 }

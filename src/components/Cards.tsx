@@ -23,7 +23,6 @@ interface CardsProps {
 export default function Cards({cards, handleClick, updateCollection, collection, selectionMode }: CardsProps){
   function getQtd(code: string){
     const card = collection.find(c => c.code_variant === code)
-    console.log(card)
     if(card) return card.qtd
     return 0
   }
