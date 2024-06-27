@@ -7,6 +7,7 @@ import Selection from "@/components/Selection";
 import Cards from "@/components/Cards";
 import { Checkbox } from "@/components/ui/checkbox"
 import Search from "@/components/Search/Search";
+import { UserProvider } from "@/context/userContext";
 
 const searchQuery = '/api/search'
 // import { debounce } from 'lodash'
@@ -126,35 +127,37 @@ export default function Home(){
 
 
   return (
-    <div className="px-4 flex flex-col gap-8">
-      <nav className="flex justify-end items-center p-8 gap-2">
-        <Link href="/scan">Scan</Link>
-        {user ? (<Link href="/dash">{user.email}</Link>) : (<Link href="/login">Login</Link>)}
-      </nav>
+    <UserProvider>
+      <div className="px-4 flex flex-col gap-8">
+        <nav className="flex justify-end items-center p-8 gap-2">
+          <Link href="/scan">Scan</Link>
+          {user ? (<Link href="/dash">{user.email}</Link>) : (<Link href="/login">Login</Link>)}
+        </nav>
 
-      <div className="flex flex-col gap-4 p-4 items-center">
-        <Search query={query} setQuery={setQuery}/>
-        <div className="flex gap-2 justify-start items-center w-full">
-          <Checkbox 
-            id="selection-mode"
-            checked={selectionMode} 
-            onCheckedChange={() => setSelectionMode(!selectionMode)}
-            />
-            <label htmlFor="selection-mode">Selection Mode</label>
+        <div className="flex flex-col gap-4 p-4 items-center">
+          <Search query={query} setQuery={setQuery}/>
+          <div className="flex gap-2 justify-start items-center w-full">
+            <Checkbox 
+              id="selection-mode"
+              checked={selectionMode} 
+              onCheckedChange={() => setSelectionMode(!selectionMode)}
+              />
+              <label htmlFor="selection-mode">Selection Mode</label>
+          </div>
         </div>
+
+        {isLoading ? ('loading') : (
+          <Cards 
+            cards={result} 
+            selectionMode={selectionMode}
+            handleClick={handleClick} 
+            collection={collection} 
+            updateCollection={handleUpdateCollection}
+            />
+        )}
+
+        {selection.length > 0 && (<Selection cards={selection} onSave={handleOnSaveSelection}/>)}
       </div>
-
-      {isLoading ? ('loading') : (
-        <Cards 
-          cards={result} 
-          selectionMode={selectionMode}
-          handleClick={handleClick} 
-          collection={collection} 
-          updateCollection={handleUpdateCollection}
-          />
-      )}
-
-      {selection.length > 0 && (<Selection cards={selection} onSave={handleOnSaveSelection}/>)}
-    </div>
+    </UserProvider>
   );
 };

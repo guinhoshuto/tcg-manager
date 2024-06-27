@@ -8,6 +8,7 @@ import {
     DialogTrigger,
   } from "@/components/ui/dialog"
 import { useEffect, useState } from "react"
+import { useUser } from '@/context/userContext'
 
 
 interface Card {
@@ -29,6 +30,8 @@ interface CardProps {
 export default function Card({ card, handleClick, quantity, updateQuantity, selectionMode } : CardProps){
     const [qtd, setQtd] = useState<number | null>(null)
     const [open, setOpen] = useState<boolean>(false)
+
+    const { user } = useUser()
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         e.preventDefault()
@@ -70,6 +73,7 @@ export default function Card({ card, handleClick, quantity, updateQuantity, sele
                             <b>{card.name}</b>
                             <span className="text-sm">
                                 ({card.code}) 
+                                {user}
                             </span>
                         </div>
                         {qtd && <div className='absolute right-[-16px] top-[-16px] bg-red-400 rounded-full w-8 h-8 flex justify-center items-center text-white'>{qtd}</div> }
