@@ -26,29 +26,24 @@ interface Collection {
 interface CardsProps {
     cards: Card[]
     handleClick: (card: Card) => void
-    collection: Collection[] 
-    updateCollection: (code_variant: string, qtd: number) => void
     selectionMode: boolean
 }
-export default function Cards({cards, handleClick, updateCollection, collection, selectionMode }: CardsProps){
+export default function Cards({cards, handleClick, selectionMode }: CardsProps){
   const [cardList, setCardList] = useState<CardList[]>([])
-  function getQtd(code: string){
-    const card = collection.find(c => c.code_variant === code)
-    if(card) return card.qtd
-    return 0
-  }
+  // function getQtd(code: string){
+  //   const card = collection.find(c => c.code_variant === code)
+  //   if(card) return card.qtd
+  //   return 0
+  // }
 
-  useEffect(() => {
-    const tmp: CardList[] = []
-    cards.forEach(c => {
-      const owned = collection.find(col => col.code_variant === c.code_variant)
-      console.log(collection)
-      if(owned) console.log(owned.qtd)
-      if(owned) tmp.push({...c, qtd: owned.qtd})
-    })
-    setCardList(tmp)
-    console.log(cardList)
-  }, [collection])
+  // useEffect(() => {
+  //   const tmp: CardList[] = []
+  //   cards.forEach(c => {
+  //     const owned = collection.find(col => col.code_variant === c.code_variant)
+  //     if(owned) tmp.push({...c, qtd: owned.qtd})
+  //   })
+  //   setCardList(tmp)
+  // }, [collection])
 
   return (
     <div className="grid gap-4 lg:gap-8 grid-col-4 lg:grid-cols-8 w-full justify-center">
@@ -57,9 +52,9 @@ export default function Cards({cards, handleClick, updateCollection, collection,
           key={card.code_variant} 
           card={card}
           handleClick={handleClick}
-          quantity={getQtd(card.code_variant)}
+          // quantity={getQtd(card.code_variant)}
           // quantity={card.qtd}
-          updateQuantity={updateCollection}
+          // updateQuantity={updateCollection}
           selectionMode={selectionMode}
           />
         )) : (<div>Não há cartas disponíveis</div>)}

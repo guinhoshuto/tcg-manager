@@ -5,7 +5,6 @@ import {
     DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
   } from "@/components/ui/dialog"
 import { useEffect, useState } from "react"
 import { useUser } from '@/context/userContext'
@@ -21,32 +20,33 @@ interface Card {
 
 interface CardProps {
     card: Card
-    quantity: number
+    // quantity: number
     handleClick: (card: Card) => void
-    updateQuantity: (code_variant:string, n: number) => void
+    // updateQuantity: (code_variant:string, n: number) => void
     selectionMode: boolean
 }
 
-export default function Card({ card, handleClick, quantity, updateQuantity, selectionMode } : CardProps){
+export default function Card({ card, handleClick, selectionMode } : CardProps){
     const [qtd, setQtd] = useState<number | null>(null)
     const [open, setOpen] = useState<boolean>(false)
 
-    const { user, collection } = useUser()
-    console.log('a', collection)
+    const { collection, handleUpdateCollection } = useUser()
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+        console.log('chamado aqui')
         e.preventDefault()
         setQtd(+e.target.value)
     }
 
     useEffect(() => {
-        if(quantity > 0) setQtd(quantity)
-    }, [])
+        const ownedCard = collection.find(c => c.code_variant === card.code_variant)
+        if(ownedCard && ownedCard.qtd > 0) setQtd(ownedCard.qtd)
+    }, [collection])
 
     useEffect(() => {
         if(!isNull(qtd)){ 
             if(qtd < 0) setQtd(0)
-            updateQuantity(card.code_variant, qtd)
+            handleUpdateCollection(card.code_variant, qtd)
         }
     }, [qtd])
 
@@ -108,7 +108,7 @@ export default function Card({ card, handleClick, quantity, updateQuantity, sele
                                         className="text-center h-full w-10 ring-1 rounded-lg"
                                         min={0}
                                         type="number" 
-                                        value={qtd ? qtd : 0} 
+                                        value={isNull(qtd) ? 0 : qtd} 
                                         onChange={handleInputChange} />
                                       <button 
                                         className="flex justify-center items-end bg-green-400 text-white rounded-full p-3"

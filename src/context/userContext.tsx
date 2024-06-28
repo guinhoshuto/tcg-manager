@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/client";
 
 interface UserContextType {
     user: User | null
+    handleUpdateCollection: (code_variant: string, qtd: number) => void
     collection: Collection[]
 }
 
@@ -38,20 +39,31 @@ export const UserProvider: React.FC<{children: ReactNode}> = ({ children }) => {
 
     useEffect(() => {
         if(!user) return
-        getUserCollection(user.id).then(data => {
-            setCollection(data)
-        })
+        getUserCollection(user.id)
     }, [user])
     
     async function getUserCollection(userId: string) {
         if (!user) return;
         const res = await fetch(`/api/user/${userId}/collection`);
         const data = await res.json();
-        return data;
+        setCollection(data)
+    }
+    async function handleUpdateCollection(code_variant: string, qtd: number){
+        if(!user) return
+        fetch(`/api/user/${user.id}/collection`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                code_variant,
+                qtd
+            })
+        }).then(() => getUserCollection(user.id))
     }
 
     return (
-        <UserContext.Provider value={{ user, collection }}>
+        <UserContext.Provider value={{ user, collection, handleUpdateCollection }}>
             {children}
         </UserContext.Provider>
     )

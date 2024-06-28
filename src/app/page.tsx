@@ -46,7 +46,7 @@ export default function Home(){
   const [result, setResult] = useState<Cards[]>([])
   const [user, setUser] = useState<User | undefined>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [collection, setCollection] = useState<Collection[]>([])
+  // const [collection, setCollection] = useState<Collection[]>([])
   const [selectionMode, setSelectionMode] = useState<boolean>(false)
   const [selection, setSelection] = useState<Cards[]>([])
 
@@ -69,26 +69,26 @@ export default function Home(){
     }
   }
 
-  async function handleUpdateCollection(code_variant: string, qtd: number){
-    if(!user) return
-    await fetch(`/api/user/${user.id}/collection`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        code_variant,
-        qtd
-      })
-    })
-  }
+  // async function handleUpdateCollection(code_variant: string, qtd: number){
+  //   if(!user) return
+  //   await fetch(`/api/user/${user.id}/collection`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       code_variant,
+  //       qtd
+  //     })
+  //   })
+  // }
 
-  async function getUserCollection(userId: string) {
-    if (!user) return;
-    const res = await fetch(`/api/user/${userId}/collection`);
-    const data = await res.json();
-    setCollection(data);
-  }
+  // async function getUserCollection(userId: string) {
+  //   if (!user) return;
+  //   const res = await fetch(`/api/user/${userId}/collection`);
+  //   const data = await res.json();
+  //   setCollection(data);
+  // }
 
   useEffect(() => {
     setIsLoading(true)
@@ -104,16 +104,16 @@ export default function Home(){
       }).then(() => {
         getQueryResults(searchQuery)
       })
-      .then(() => {
-        if(user) getUserCollection(user.id)
-      })
+      // .then(() => {
+      //   if(user) getUserCollection(user.id)
+      // })
       .then(() => setIsLoading(false))
   }, [])
 
-  useEffect(() => {
-    if(!user) return
-    getUserCollection(user.id)
-  }, [user])
+  // useEffect(() => {
+  //   if(!user) return
+  //   getUserCollection(user.id)
+  // }, [user])
   
   useEffect(() => {
     console.log('query', query)
@@ -151,8 +151,8 @@ export default function Home(){
             cards={result} 
             selectionMode={selectionMode}
             handleClick={handleClick} 
-            collection={collection} 
-            updateCollection={handleUpdateCollection}
+            // collection={collection} 
+            // updateCollection={handleUpdateCollection}
             />
         )}
 
